@@ -14,8 +14,8 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     passwordError.textContent = '';
 
     // Dummy valid credentials
-    const validUsername = 'yogi';
-    const validPassword = 'pass123';
+    const validUsername = 'aa';
+    const validPassword = '123';
 
     // Validate username
     if (username === '') {

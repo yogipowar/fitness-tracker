@@ -1,11 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
 </head>
+
 <body>
-    helo
+    <div class="container flex">
+        <div id="sidebar-container"></div>
+        <div class="main-content">
+            <h1 class="text-red-500">Welcome to the Dashboard</h1>
+            <p>This is your fitness tracker dashboard where you can manage your workouts and challenges.</p>
+        </div>
+    </div>
+
+    <!-- Placeholder for Sidebar -->
+
+    <script>
+        // Load the sidebar dynamically
+        fetch('./sidebar.html')
+            .then(response => response.text())
+            .then(data => {
+                console.log("enter sidebar", data);
+                document.getElementById('sidebar-container').innerHTML = data;
+            });
+    </script>
 </body>
+
 </html>
