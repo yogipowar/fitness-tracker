@@ -7,28 +7,78 @@
     <title>Dashboard</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
-
 </head>
 
 <body>
-    <div class="container flex">
+    <div class="w-full flex">
         <div id="sidebar-container"></div>
-        <div class="main-content">
-            <h1 class="text-red-500">Welcome to the Dashboard</h1>
+        <div class="main-content w-full">
+            <div class="w-full flex justify-between items-center py-3 px-4 border-b border-gray-200 ">
+                <div class="w-full">
+                    <h1 class="text-2xl font-bold text-gray-800 leading-tight">Good Morning</h1>
+                    <h3 class="text-lg text-gray-600 leading-tight">Welcome Back!</h3>
+                </div>
+                <div id="profile-section" class="w-full flex justify-end">
+                    <div class="profile flex">
+                        <img class="useravatar w-12 h-12 mr-2 rounded-full" id="useravatar"
+                            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D"
+                            alt="abc">
+                        <div class="flex flex-col justify-center">
+                            <h2 class="username leading-tight" id="username"></h2>
+                            <p class="useremail leading-tight" id="useremail"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <h1>Welcome to the Dashboard</h1>
             <p>This is your fitness tracker dashboard where you can manage your workouts and challenges.</p>
         </div>
     </div>
 
-    <!-- Placeholder for Sidebar -->
-
     <script>
         // Load the sidebar dynamically
-        fetch('./sidebar.html')
+        fetch('../components/sidebar.html')
             .then(response => response.text())
             .then(data => {
-                console.log("enter sidebar", data);
                 document.getElementById('sidebar-container').innerHTML = data;
+
+                // Get the current page's filename
+                const currentPage = window.location.pathname.split('/').pop();
+
+                // Select all sidebar links
+                const sidebarLinks = document.querySelectorAll('.sidebar a');
+
+                // Loop through the links to check which one matches the current page
+                sidebarLinks.forEach(link => {
+                    // If the link's href matches the current page, add 'active' class
+                    if (link.getAttribute('href') === currentPage) {
+                        link.classList.add('active');
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Error loading sidebar:', error);
             });
+
+        var useravatar = document.getElementById('useravatar');
+        var username = document.getElementById('username');
+        var useremail = document.getElementById('useremail');
+
+        fetch('https://67137d486c5f5ced662692c4.mockapi.io/username')
+            .then(response => response.json())
+            .then(data => {
+                console.log("Fetched data:", data); // Log the fetched data
+                const user = data[4]; // Get the first user
+                // useravatar.src = user.avatar;
+                username.textContent = user.name;
+                useremail.textContent = user.email;
+            })
+            .catch(error => {
+                console.error('Error fetching user data:', error);
+            });
+
     </script>
 </body>
 

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <div class="container flex">
+        <div id="sidebar-container"></div>
+        <div class="main-content">
+            <h1>Welcome to the worko</h1>
+            <p>This is your fitness tracker dashboard where you can manage your workouts and challenges.</p>
+        </div>
+    </div>
+
+    <script>
+        // Load the sidebar dynamically
+        fetch('../components/sidebar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sidebar-container').innerHTML = data;
+
+                // Get the current page's filename
+                const currentPage = window.location.pathname.split('/').pop();
+
+                // Select all sidebar links
+                const sidebarLinks = document.querySelectorAll('.sidebar a');
+
+                // Loop through the links to check which one matches the current page
+                sidebarLinks.forEach(link => {
+                    // If the link's href matches the current page, add 'active' class
+                    if (link.getAttribute('href') === currentPage) {
+                        link.classList.add('active');
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Error loading sidebar:', error);
+            });
+    </script>
+</body>
+
+</html>
